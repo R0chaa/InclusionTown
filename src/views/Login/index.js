@@ -153,6 +153,14 @@ export function Login() {
                   label="Lembrar-me"
                 />
               </Box>
+              <Button
+                  type="submit"
+                  // href="/home"
+                  variant="contained"
+                  color="primary"
+                >
+                  <Typography sx={{ fontFamily: "Poppins", fontSize: "24px", fontWeight: 700 }}> Entrar </Typography>
+                </Button>
               <Box
                 mt={-3.8}
                 mr={"30px"}
