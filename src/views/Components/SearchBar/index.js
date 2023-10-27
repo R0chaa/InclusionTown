@@ -3,11 +3,11 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { styled } from "@mui/material/styles";
 
 const BootstrapButton = styled(Button)({
-    "&:hover": {
-      backgroundColor: "#7219f7",
-      borderColor: "#84E",
-      boxShadow: "none",
-    },
+  "&:hover": {
+    backgroundColor: "#7219f7",
+    borderColor: "#84E",
+    boxShadow: "none",
+  },
 });
 
 export const SearchBar = () => {
@@ -62,7 +62,18 @@ export const SearchBar = () => {
           height: "50px",
         }}
       >
-        Buscar
+        <Typography
+          sx={{
+            color: "#FFF",
+            fontFamily: "Poppins",
+            fontSize: "20px",
+            fontStyle: "normal",
+            fontWeight: 600,
+            lineHeight: "normal",
+          }}
+        >
+          Buscar
+        </Typography>
       </BootstrapButton>
     </Box>
   );
