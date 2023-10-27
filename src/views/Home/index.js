@@ -2,12 +2,13 @@ import { Box } from "@mui/material";
 import { CustomToolbar } from "../Components/Toolbar";
 import { SearchBar } from "../Components/SearchBar";
 import { useLoadScript } from "@react-google-maps/api";
-import React from 'react'
-import MyComponent from "../Components/MapAPI"
+import React from "react";
+import MyComponent from "../Components/MapAPI";
+import { BasicSelect } from "../Components/Filters"
 
 export function Home() {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyByv9We4A7ctrp3a6I-Xz9uIBuOpx0Dymo" ,
+    googleMapsApiKey: "AIzaSyByv9We4A7ctrp3a6I-Xz9uIBuOpx0Dymo",
   });
 
   if (!isLoaded) return <div>Loading...</div>;
@@ -16,6 +17,7 @@ export function Home() {
     <Box>
       <CustomToolbar />
       <SearchBar />
+      <BasicSelect />
       <MyComponent />
       {/* <script
         async

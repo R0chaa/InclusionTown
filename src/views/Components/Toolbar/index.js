@@ -62,7 +62,7 @@ export const CustomToolbar = () => {
               sx={{
                 color: "#84E",
                 textAlign: "center",
-                fontFamily: "Roboto",
+                fontFamily: "Lato",
                 fontSize: "17px",
                 fontStyle: "normal",
                 fontWeight: 700,

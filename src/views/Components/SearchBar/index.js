@@ -65,7 +65,7 @@ export const SearchBar = () => {
         <Typography
           sx={{
             color: "#FFF",
-            fontFamily: "Poppins",
+            fontFamily: "Lato",
             fontSize: "20px",
             fontStyle: "normal",
             fontWeight: 600,
