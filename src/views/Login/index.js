@@ -15,11 +15,10 @@ export function Login() {
   return (
     <Box>
       <CustomToolbar />
-
-      <SearchBar/>
+      <SearchBar />
 
       <Box mt={"2%"} justifyContent={"center"} display="flex">
-        <img src="Personagem.png" alt="personagem" width="800px"/>
+        <img src="Personagem.png" alt="personagem" width="800px" />
         <Box ml={15}>
           {/* <Typography color="black" sx={{ fontSize: "65px", fontWeight: 700, fontFamily: "Poppins" }}>
             Avalie e apoie a<br/> inclusão em sua<br/> cidade
@@ -90,27 +89,31 @@ export function Login() {
                 />
               </Box>
 
-              <Box sx={{width: "550.941px",
-                    height: "57.49px",
-                    flexShrink: 0}} >
+              <Box
+                sx={{ width: "550.941px", height: "57.49px", flexShrink: 0 }}
+              >
                 <Button
-                      type="submit"
-                      // href="/home"
-                      variant="contained"
-                      color="primary"
-
-                      sx={{width: "530px"}}
+                  type="submit"
+                  // href="/home"
+                  variant="contained"
+                  color="primary"
+                  sx={{ width: "530px" }}
+                >
+                  <Typography
+                    sx={{
+                      color: "#FFF",
+                      textAlign: "center",
+                      fontFamily: "Roboto",
+                      fontSize: "18px",
+                      fontStyle: "normal",
+                      fontWeight: 600,
+                      lineHeight: "40px" /* 222.222% */,
+                      letterSpacing: "1.44px",
+                    }}
                   >
-                  <Typography sx={{ color: "#FFF",
-                    textAlign: "center",
-                    fontFamily: "Roboto",
-                    fontSize: "18px",
-                    fontStyle: "normal",
-                    fontWeight: 600,
-                    lineHeight: "40px", /* 222.222% */
-                    letterSpacing: "1.44px"}}> 
-                    Login </Typography>
-                  </Button>
+                    Login{" "}
+                  </Typography>
+                </Button>
               </Box>
               <Box
                 //mt={-3.8}
