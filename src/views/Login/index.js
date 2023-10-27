@@ -1,22 +1,13 @@
 import * as React from "react";
 import { Box, Typography, TextField, Button, Link } from "@mui/material";
 import { CustomToolbar } from "../Components/Toolbar";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import { styled } from "@mui/material/styles";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useState } from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-
-const BootstrapButton = styled(Button)({
-  "&:hover": {
-    backgroundColor: "#7219f7",
-    borderColor: "#84E",
-    boxShadow: "none",
-  },
-});
+import { SearchBar } from "../Components/SearchBar";
 
 export function Login() {
   const [showPassword, setShowPassword] = useState(true);
@@ -25,62 +16,7 @@ export function Login() {
     <Box>
       <CustomToolbar />
 
-      <Box
-        sx={{
-          height: "120px",
-          backgroundColor: "#717171",
-          justifyContent: "center",
-          alignItems: "center",
-          display: "flex",
-          gap: "20px",
-        }}
-      >
-        <Box display="flex" alignItems="center">
-          <FilterListIcon style={{ color: "white" }} />
-          <Typography
-            color="white"
-            sx={{ fontSize: "25px", marginLeft: "10px" }}
-          >
-            Filtros
-          </Typography>
-        </Box>
-
-        <TextField
-          id="outlined-basic"
-          label="Digite o que procura"
-          variant="outlined"
-          sx={{ backgroundColor: "white", borderRadius: "5px" }}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Estado"
-          variant="outlined"
-          sx={{ backgroundColor: "white", borderRadius: "5px" }}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Cidade"
-          variant="outlined"
-          sx={{ backgroundColor: "white", borderRadius: "5px" }}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Todos os filtros"
-          variant="outlined"
-          sx={{ backgroundColor: "white", borderRadius: "5px" }}
-        />
-
-        <BootstrapButton
-          sx={{
-            backgroundColor: "#84E",
-            color: "white",
-            width: "200px",
-            height: "50px",
-          }}
-        >
-          Buscar
-        </BootstrapButton>
-      </Box>
+      <SearchBar/>
 
       <Box mt={"2%"} justifyContent={"center"} display="flex">
         <img src="Personagem.png" alt="personagem" width="800px"/>
@@ -153,18 +89,33 @@ export function Login() {
                   label="Lembrar-me"
                 />
               </Box>
-              <Button
-                  type="submit"
-                  // href="/home"
-                  variant="contained"
-                  color="primary"
-                >
-                  <Typography sx={{ fontFamily: "Poppins", fontSize: "24px", fontWeight: 700 }}> Entrar </Typography>
-                </Button>
+
+              <Box sx={{width: "550.941px",
+                    height: "57.49px",
+                    flexShrink: 0}} >
+                <Button
+                      type="submit"
+                      // href="/home"
+                      variant="contained"
+                      color="primary"
+
+                      sx={{width: "530px"}}
+                  >
+                  <Typography sx={{ color: "#FFF",
+                    textAlign: "center",
+                    fontFamily: "Roboto",
+                    fontSize: "18px",
+                    fontStyle: "normal",
+                    fontWeight: 600,
+                    lineHeight: "40px", /* 222.222% */
+                    letterSpacing: "1.44px"}}> 
+                    Login </Typography>
+                  </Button>
+              </Box>
               <Box
-                mt={-3.8}
-                mr={"30px"}
-                textAlign={"right"}
+                //mt={-3.8}
+                //mr={"30px"}
+                textAlign={"center"}
                 sx={{
                   fontFamily: "Poppins",
                   fontSize: "16px",
