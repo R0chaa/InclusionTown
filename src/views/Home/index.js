@@ -4,11 +4,11 @@ import { SearchBar } from "../Components/SearchBar";
 import { useLoadScript } from "@react-google-maps/api";
 import React from "react";
 import MyComponent from "../Components/MapAPI";
-import { BasicSelect } from "../Components/Filters"
+import { BasicSelect } from "../Components/Filters";
 
 export function Home() {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyByv9We4A7ctrp3a6I-Xz9uIBuOpx0Dymo",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
   if (!isLoaded) return <div>Loading...</div>;
