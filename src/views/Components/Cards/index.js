@@ -42,7 +42,7 @@ export const ReviewCard = () => {
     // cards.forEach(card => {
     // })
     
-    <Card sx={{ maxWidth: 750, mt: "-40%", ml: "5%" }}>
+    <Card sx={{ maxWidth: 750, maxHeight: 900, mt: "-41%", ml: "5%" }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
@@ -59,7 +59,7 @@ export const ReviewCard = () => {
       />
       <CardMedia
         component="img"
-        height="194"
+        height="250"
         image="mackenzie.jpg"
         alt="mack"
       />
@@ -100,3 +100,74 @@ export const ReviewCard = () => {
     </Card>
   );
 };
+
+export const ReviewCard2 = () => {
+    const [expanded, setExpanded] = React.useState(false);
+  
+    const handleExpandClick = () => {
+      setExpanded(!expanded);
+    };
+  
+    return (
+      // cards.forEach(card => {
+      // })
+      
+      <Card sx={{ maxWidth: 750, maxHeight: 900, mt:"50px", ml: "5%" }}>
+        <CardHeader
+          avatar={
+            <Avatar sx={{ bgcolor: purple[500] }} aria-label="recipe">
+              <AssignmentIcon />
+            </Avatar>
+          }
+          action={
+            <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+          }
+          title="Universidade Presbiteriana Mackenzie"
+          subheader="September 14, 2016"
+        />
+        <CardMedia
+          component="img"
+          height="250"
+          image="mackenzie.jpg"
+          alt="mack"
+        />
+        <CardContent>
+          <Typography sx={{fontSize:"20px"}} color="text.secondary">
+              Universidade Presbiteriana Mackenzie é uma instituição de ensino superior privada e confessional no Brasil.
+              A universidade é mantida pelo Instituto Presbiteriano Mackenzie, uma associação civil de direito privado, 
+              sem fins lucrativos e de finalidade educacional. 
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <Button variant="outlined" color="secondary">
+            Deixar comentário
+          </Button>
+          <IconButton aria-label="add to favorites" sx={{ ml: "10px" }}>
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography paragraph>Avaliações:</Typography>
+            <Typography paragraph>Teste teste teste</Typography>
+            <Typography paragraph>teste testeeeee testeeeee</Typography>
+            <Typography>qualquer coisa qualquer coisa</Typography>
+          </CardContent>
+        </Collapse>
+      </Card>
+    );
+  };
+  
