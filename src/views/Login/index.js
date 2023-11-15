@@ -128,7 +128,7 @@ export function Login() {
                 }}
               >
                 <Link component="button" sx={{ color: "#6358DC" }}>
-                  Esqueceu a senha?
+                  <a href="\Signup">Ainda não tem uma conta?</a>
                 </Link>
               </Box>
             </Box>

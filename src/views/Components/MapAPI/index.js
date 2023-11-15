@@ -4,7 +4,7 @@ import React from "react";
 
 const containerStyle = {
   width: "50%",
-  height: "100vh",
+  height: "150vh",
   position: "relative",
   marginLeft: "50%",
   marginTop: "-91px"

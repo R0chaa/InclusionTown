@@ -30,10 +30,10 @@ export const BasicSelect = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ ml: "680px", mt: "-56px", width: "56px" }}>
+      <Box sx={{ ml: "36%", mt: "-56px", width: "56px" }}>
         <img src="menu.svg" alt="menu" />
       </Box>
-      <Box sx={{ ml: "750px", mt: "-59px", width: "56px" }}>
+      <Box sx={{ ml: "40%", mt: "-59px", width: "56px" }}>
         <img src="list.svg" alt="list" />
       </Box>
       <Typography

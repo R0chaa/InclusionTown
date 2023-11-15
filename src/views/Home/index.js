@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { CustomToolbar } from "../Components/Toolbar";
 import { SearchBar } from "../Components/SearchBar";
 import { useLoadScript } from "@react-google-maps/api";
@@ -22,9 +22,10 @@ export function Home() {
       <MyComponent />
 
       <Box>
-        <ReviewCard />
-        {//<ReviewCard2 />
-        }
+        <Grid>
+          <ReviewCard />
+          <ReviewCard2 />
+        </Grid>
       </Box>
 
       {/* <script

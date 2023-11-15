@@ -3,6 +3,7 @@ import { ErrorPage } from "./ErrorPage";
 import { Login } from "../views/Login";
 import { Home } from "../views/Home";
 import { Rate } from "../views/Rate"
+import { Signup } from "../views/Signup"
 
 export const router = createBrowserRouter([
 	{
@@ -21,5 +22,9 @@ export const router = createBrowserRouter([
 	{
 		path: "/Rate",
 		element: <Rate />,
+	},
+	{
+		path: "/Signup",
+		element: <Signup />,
 	},
 ]);
