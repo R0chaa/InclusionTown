@@ -1,25 +1,28 @@
 import { Box, Grid } from "@mui/material";
 import { CustomToolbar } from "../Components/Toolbar";
 import { SearchBar } from "../Components/SearchBar";
-import { useLoadScript } from "@react-google-maps/api";
 import React from "react";
 import MyComponent from "../Components/MapAPI";
 import { BasicSelect } from "../Components/Filters";
 import { ReviewCard, ReviewCard2 } from "../Components/Cards";
 
 export function Home() {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-  });
+  const handleMarkerClick = (marker) => {
+    console.log(`Marcador clicado: ${marker.address}`);
+    // Adicione aqui o código para a navegação para outra tela
+  };
 
-  if (!isLoaded) return <div>Loading...</div>;
+  const handleMapClick = (lat, lng) => {
+    console.log(`Mapa clicado em: ${lat}, ${lng}`);
+    // Adicione aqui o código para a navegação para outra tela ou qualquer outra lógica desejada
+  };
 
   return (
     <Box>
       <CustomToolbar />
       <SearchBar />
       <BasicSelect />
-      <MyComponent />
+      <MyComponent onMarkerClick={handleMarkerClick} onMapClick={handleMapClick} />
 
       <Box>
         <Grid>
@@ -27,11 +30,6 @@ export function Home() {
           <ReviewCard2 />
         </Grid>
       </Box>
-
-      {/* <script
-        async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByv9We4A7ctrp3a6I-Xz9uIBuOpx0Dymo&libraries=places&callback=initMap"
-      /> */}
     </Box>
   );
 }
