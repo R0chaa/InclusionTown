@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CustomToolbar } from "../Components/Toolbar";
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -30,18 +31,42 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export function Signup() {
+  const [formData, setFormData] = React.useState({
+    firstName: '',
+    lastName: '',
+    mail: '',
+    passwordUser: '',
+    allowExtraEmails: false,
+  });
+  const [isFormValid, setIsFormValid] = React.useState(false);
+  const navigate = useNavigate();
+
+  const handleInputChange = (event) => {
+    const { name, value, checked, type } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    if (isFormValid) {
+      // Aqui você pode fazer o redirecionamento e passar os dados como parâmetros
+      navigate(`/login?firstName=${formData.firstName}&lastName=${formData.lastName}&mail=${formData.mail}&passwordUser=${formData.passwordUser}`);
+    }
   };
+
+  React.useEffect(() => {
+    // Validar se todos os campos estão preenchidos
+    const { firstName, lastName, mail, passwordUser } = formData;
+    const isValid = firstName && lastName && mail && passwordUser;
+    setIsFormValid(isValid);
+  }, [formData]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <CustomToolbar/>
+      <CustomToolbar />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -69,6 +94,7 @@ export function Signup() {
                   id="firstName"
                   label="Nome"
                   autoFocus
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -79,32 +105,35 @@ export function Signup() {
                   label="Sobrenome"
                   name="lastName"
                   autoComplete="family-name"
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="email"
+                  id="mail"
                   label="E-mail"
-                  name="email"
-                  autoComplete="email"
+                  name="mail"
+                  autoComplete="mail"
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="password"
+                  name="passwordUser"
                   label="Senha"
                   type="password"
-                  id="password"
+                  id="passwordUser"
                   autoComplete="new-password"
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  control={<Checkbox name="allowExtraEmails" color="primary" onChange={handleInputChange} />}
                   label="Gostaria de receber informações sobre o InclusionTown."
                 />
               </Grid>
@@ -114,6 +143,7 @@ export function Signup() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={!isFormValid}
             >
               Criar conta
             </Button>

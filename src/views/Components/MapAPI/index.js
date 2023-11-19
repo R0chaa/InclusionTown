@@ -15,7 +15,7 @@ const center = {
   lng: -46.65016164489669,
 };
 
-function MyComponent({ onMarkerClick, onMapClick }) {
+function MyComponent({ nomeUser, onMarkerClick, onMapClick }) {
   const navigate = useNavigate();
 
   const { isLoaded } = useJsApiLoader({
@@ -89,7 +89,8 @@ function MyComponent({ onMarkerClick, onMapClick }) {
                       results[0].formatted_address
                     )}&name=${encodeURIComponent(
                       place.name
-                    )}&photoUrl=${encodeURIComponent(photoUrl)}`
+                    )}&photoUrl=${encodeURIComponent(photoUrl)}
+                    &userName=${nomeUser}`
                   );
                 })
                 .catch((error) => {
@@ -112,7 +113,7 @@ function MyComponent({ onMarkerClick, onMapClick }) {
             navigate(
               `/rate?address=${encodeURIComponent(
                 marker.address
-              )}&name=${encodeURIComponent(marker.name)}`
+              )}&name=${encodeURIComponent(marker.name)}&userName=${nomeUser}`
             );
             getPlaceDetails(marker.placeId); // Certifique-se de adicionar um ID de lugar (placeId) a cada marcador
           }}

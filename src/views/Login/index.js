@@ -8,21 +8,58 @@ import { useState } from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { SearchBar } from "../Components/SearchBar";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
+const validEmail = process.env.REACT_APP_VALID_EMAIL;
+const validPassword = process.env.REACT_APP_VALID_PASSWORD;
+const validUsername = process.env.REACT_APP_VALID_USERNAME;
+
+const users = [
+  { email: validEmail, password: validPassword, name: validUsername},
+  // Adicione outros usuários conforme necessário
+];
 
 export function Login() {
   const [showPassword, setShowPassword] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const firstName = params.get("firstName");
+  const lastName = params.get("lastName");
+  const mail = params.get("mail");
+  const passwordUser = params.get("passwordUser");
+
+  if (mail) {
+    users.push({ email: mail, password: passwordUser, name: firstName + " " + lastName});
+  }
+
+  const handleLogin = () => {
+    const user = users.find((user) => user.email === email && user.password === password);
+
+    if (user) {
+      console.log("Login bem-sucedido!");
+      setIsAuthenticated(true);
+      navigate(`/home?name=${user.name}`);
+    } else {
+      setError("Credenciais inválidas. Tente novamente.");
+      setEmail("");
+      setPassword("");
+    }
+  };
 
   return (
     <Box>
-      <CustomToolbar />
+      <CustomToolbar isAuthenticated={isAuthenticated}/>
       <SearchBar />
 
       <Box mt={"2%"} justifyContent={"center"} display="flex">
         <img src="Personagem.png" alt="personagem" width="800px" />
         <Box ml={15}>
-          {/* <Typography color="black" sx={{ fontSize: "65px", fontWeight: 700, fontFamily: "Poppins" }}>
-            Avalie e apoie a<br/> inclusão em sua<br/> cidade
-          </Typography> */}
           <img width="530px" src="apoie.svg" alt="apoie" />
           <Typography
             sx={{
@@ -35,9 +72,9 @@ export function Login() {
               mt: "25px",
             }}
           >
-            Pharetra blandit augue volutpat libero augue semper. Non diam
-            <br /> neque praesent sem senectus mauris lectus a urna. Tortor
-            <br /> pellentesque ipsum tincidunt enim.
+            Inclusão é a chave para um futuro vibrante e diversificado.<br/> 
+            Promovemos um ambiente acolhedor, onde a diversidade<br/> é celebrada e
+            cada voz é valorizada.
           </Typography>
 
           <Box mt="25px">
@@ -45,7 +82,11 @@ export function Login() {
               id="outlined-basic"
               label="E-mail"
               variant="outlined"
-              sx={{ width: "95%" }}
+              sx={{ width: "95%", borderColor: error && "#f44336" }}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              error={error !== ""}
+              helperText={error}
             />
           </Box>
 
@@ -55,7 +96,7 @@ export function Login() {
               label="Senha"
               variant="outlined"
               type={showPassword ? "password" : "text"}
-              sx={{ width: "95%" }}
+              sx={{ width: "95%", borderColor: error && "#f44336" }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -69,6 +110,9 @@ export function Login() {
                   </InputAdornment>
                 ),
               }}
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              error={error !== ""}
             />
             <Box>
               <Box mt={2} textAlign={"left"}>
@@ -94,10 +138,10 @@ export function Login() {
               >
                 <Button
                   type="submit"
-                  // href="/home"
                   variant="contained"
                   color="primary"
                   sx={{ width: "530px" }}
+                  onClick={handleLogin}
                 >
                   <Typography
                     sx={{
@@ -116,8 +160,6 @@ export function Login() {
                 </Button>
               </Box>
               <Box
-                //mt={-3.8}
-                //mr={"30px"}
                 textAlign={"center"}
                 sx={{
                   fontFamily: "Poppins",
@@ -125,6 +167,7 @@ export function Login() {
                   fontStyle: "normal",
                   fontWeight: 400,
                   lineHeight: "135.5%",
+                  color: "#f44336", // Cor do erro
                 }}
               >
                 <Link component="button" sx={{ color: "#6358DC" }}>

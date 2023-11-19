@@ -5,8 +5,8 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
-import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
+import { Box } from "@mui/material";
 
 const labels = {
   0.5: "Eca",
@@ -66,8 +66,8 @@ export function HoverRating() {
 
 export function RateCard({ adr, name, photoUrl }) {
   return (
-    <Card sx={{ maxWidth: 600, ml: "15%", mt: "15vh" }}>
-      <CardMedia sx={{ height: 350 }} image={photoUrl} title="place" />
+    <Card sx={{ maxWidth: 600, ml: "15%", mt: "16vh" }}>
+      <CardMedia sx={{ height: 400 }} image={photoUrl} title="place" />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {name}

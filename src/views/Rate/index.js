@@ -8,6 +8,10 @@ import Switch from "@mui/material/Switch";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
+import { useState } from "react";
+import Rating from "@mui/material/Rating";
+import StarIcon from "@mui/icons-material/Star";
+import TextField from '@mui/material/TextField';
 
 const acessibilidade = [
   "Deficiência física",
@@ -17,7 +21,74 @@ const acessibilidade = [
   "Transtorno do Espectro do Autismo (TEA)",
 ];
 
+const labels = {
+  0.5: "Eca",
+  1: "+ou- Eca",
+  1.5: "Pobre",
+  2: "Pobre+",
+  2.5: "Ok",
+  3: "Ok+",
+  3.5: "Bom",
+  4: "Bom+",
+  4.5: "Excelente",
+  5: "Excelente+",
+};
+
+function getLabelText(value) {
+  return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
+}
+
+export function HoverRating() {
+  const [value, setValue] = React.useState(2);
+  const [hover, setHover] = React.useState(-1);
+
+  return (
+    <Box
+      sx={{
+        width: 200,
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <Rating
+        name="hover-feedback"
+        value={value}
+        precision={0.5}
+        getLabelText={getLabelText}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+        onChangeActive={(event, newHover) => {
+          setHover(newHover);
+        }}
+        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+      />
+      {value !== null && (
+        <Box sx={{ ml: 2 }}>
+          <Typography
+            variant="body2"
+            style={{ fontFamily: "Roboto, sans-serif" }}
+          >
+            {labels[hover !== -1 ? hover : value]}
+          </Typography>
+        </Box>
+      )}
+    </Box>
+  );
+}
+
 export function FormControlLabelPosition({ label }) {
+  const [rating, setRating] = useState(2);
+  const [switchState, setSwitchState] = useState(false);
+
+  const handleRatingChange = (newValue) => {
+    setRating(newValue);
+  };
+
+  const handleSwitchChange = () => {
+    setSwitchState(!switchState);
+  };
+
   return (
     <Paper
       sx={{
@@ -27,17 +98,26 @@ export function FormControlLabelPosition({ label }) {
         borderColor: "#A9A9A9",
         borderStyle: "solid",
         borderWidth: 2,
-        width: "50%",
+        width: "80%",
       }}
     >
       <FormControl sx={{ ml: "15px" }} component="fieldset">
         <FormGroup aria-label="position" row>
           <FormControlLabel
             value="end"
-            control={<Switch color="secondary" />}
+            control={
+              <Switch
+                color="secondary"
+                checked={switchState}
+                onChange={handleSwitchChange}
+              />
+            }
             label={label}
             labelPlacement="end"
           />
+          {switchState && (
+            <HoverRating value={rating} onChange={handleRatingChange} />
+          )}
         </FormGroup>
       </FormControl>
     </Paper>
@@ -50,16 +130,19 @@ export function Rate() {
   const adr = params.get("address");
   const name = params.get("name");
   const photoUrl = params.get("photoUrl");
+  const userName = params.get("userName");
 
   const imgUrl =
     photoUrl !== null
       ? photoUrl
       : "https://source.unsplash.com/random?wallpapers";
 
+  const [isAuthenticated] = useState(true);
+
   return (
     <Box>
       <Box>
-        <CustomToolbar />
+        <CustomToolbar isAuthenticated={isAuthenticated} nomeUser={userName}/>
         <SearchBar />
       </Box>
       <Grid container>
@@ -76,7 +159,7 @@ export function Rate() {
           </Box>
         </Grid>
         <Grid item xs={6}>
-          <Box>
+          <Box  mt={-2}>
             <Typography
               sx={{
                 mt: "4%",
@@ -112,7 +195,8 @@ export function Rate() {
                 </React.Fragment>
               ))}
             </Box>
-            <Button sx={{ mt: "10px", ml: "20px", color: "#8844EE" }}>
+            <TextField sx={{width: "95%", ml:"20px", mt:"10px"}} label="Comentário" id="fullWidth" />
+            <Button sx={{ mt: "30px", mb:"40px", ml: "70%", color: "#8844EE", fontSize:"18px"}}>
               Deixar comentário
             </Button>
           </div>
