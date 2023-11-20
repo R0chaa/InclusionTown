@@ -15,15 +15,15 @@ Os surdos enfrentam bastante dificuldade para ler, escrever e se comunicar na l�
 
 ![IHC2](https://github.com/R0chaa/InclusionTown/assets/73042947/9986c0a7-3088-4e9a-bb44-0fe1db304a7a)
 
-## Rodando a aplicação
-
-No diretório do projeto você pode executar o comando:
-
 ### Pre-Requisitos
 
 Antes de instalar as dependências do projeto, é necessário já ter instalado na sua máquina:
 
  * **Node.Js**: Caso não tenha, basta realizar o download [Aqui](https://nodejs.org/en/)
+   
+## Rodando a aplicação
+
+No diretório do projeto você pode executar o comando:
 
 ### `npm start`
 
