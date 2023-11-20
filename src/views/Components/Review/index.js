@@ -29,8 +29,8 @@ function getLabelText(value) {
   return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
 }
 
-export function HoverRating() {
-  const [value, setValue] = React.useState(2);
+export function HoverRating(placeRate) {
+  const [value, setValue] = React.useState(placeRate);
   const [hover, setHover] = React.useState(-1);
 
   return (
@@ -79,7 +79,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export function RateCard({ adr, name, photoUrl, comments }) {
+export function RateCard({ adr, name, photoUrl, comments, placeRate }) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -98,7 +98,7 @@ export function RateCard({ adr, name, photoUrl, comments }) {
         </Typography>
       </CardContent>
       <CardActions>
-        {HoverRating()}
+        {HoverRating(placeRate)}
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

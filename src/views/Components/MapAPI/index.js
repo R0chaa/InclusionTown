@@ -54,6 +54,7 @@ function MyComponent({ nomeUser, onMarkerClick, onMapClick }) {
       service.getDetails(request, (place, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
           resolve(place);
+          console.log("Rating: ", place.rating);
         } else {
           console.log("Erro ao obter detalhes do local:", status);
           reject(status);
@@ -90,7 +91,8 @@ function MyComponent({ nomeUser, onMarkerClick, onMapClick }) {
                     )}&name=${encodeURIComponent(
                       place.name
                     )}&photoUrl=${encodeURIComponent(photoUrl)}
-                    &userName=${nomeUser}`
+                    &userName=${nomeUser}
+                    &placeRate=${place.rating}`
                   );
                 })
                 .catch((error) => {

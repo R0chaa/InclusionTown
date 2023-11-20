@@ -74,8 +74,17 @@ export function HoverRating({ value, onChange }) {
   );
 }
 
-export function FormControlLabelPosition({ label }) {
-  const [rating, setRating] = useState(2);
+export function FormControlLabelPosition({ label, placeRate }) {
+  const numeroAleatorioInicial = Math.floor(Math.random() * 5) + (placeRate/2);
+
+  const [numeroAleatorio, setNumeroAleatorio] = useState(numeroAleatorioInicial);
+
+  useEffect(() => {
+    const novoNumeroAleatorio = Math.floor(Math.random() * 5) + 1;
+    setNumeroAleatorio(novoNumeroAleatorio);
+  }, []); 
+
+  const [rating, setRating] = useState(numeroAleatorio);
   const [switchState, setSwitchState] = useState(false);
 
   const handleRatingChange = (newValue) => {
@@ -128,6 +137,7 @@ export function Rate() {
   const name = params.get("name");
   const photoUrl = params.get("photoUrl");
   const userName = params.get("userName");
+  const placeRate = params.get("placeRate");
   const [comentarios, setComentarios] = useState("");
   const [comments, setComments] = useState([]);
 
@@ -164,17 +174,20 @@ export function Rate() {
   const [erroComentario, setErroComentario] = useState(false);
 
   // Carregar comentários salvos em cookies ao montar o componente
+
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     const savedComments = Cookies.get("comments");
     if (savedComments && JSON.stringify(comments) !== savedComments) {
       setComments(JSON.parse(savedComments));
     }
   }, []);  
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   // Salvar comentários em cookies sempre que a lista de comentários for atualizada
   useEffect(() => {
     Cookies.set("comments", JSON.stringify(comments));
-  }, [comments]);
+  }, [comments]); // Adicione 'comments' ao array de dependências
 
   return (
     <Box>
@@ -196,6 +209,7 @@ export function Rate() {
                 name={name}
                 photoUrl={imgUrl}
                 comments={comments}
+                placeRate={placeRate}
               />
             </Box>
           </Box>
@@ -233,7 +247,7 @@ export function Rate() {
             <Box sx={{ mt: "15px", ml: "20px" }}>
               {acessibilidade.map((label, index) => (
                 <React.Fragment key={index}>
-                  <FormControlLabelPosition label={label} />
+                  <FormControlLabelPosition label={label} placeRate={placeRate} />
                 </React.Fragment>
               ))}
             </Box>
