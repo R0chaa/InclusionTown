@@ -12,6 +12,13 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { deepPurple } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Divider from "@mui/material/Divider";
+import Tooltip from "@mui/material/Tooltip";
+import PersonAdd from "@mui/icons-material/PersonAdd";
+import Logout from "@mui/icons-material/Logout";
 
 const BootstrapButton = styled(Button)({
   "&:hover": {
@@ -20,6 +27,71 @@ const BootstrapButton = styled(Button)({
     boxShadow: "none",
   },
 });
+
+export function AccountMenu(nomeUser) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <React.Fragment>
+      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+        <Tooltip title="Configurações">
+          <IconButton
+            onClick={handleClick}
+            size="small"
+            sx={{ ml: 2 }}
+            aria-controls={open ? "account-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+          >
+            <Avatar sx={{ ml: "-35px", bgcolor: deepPurple[500] }}>
+              {nomeUser && nomeUser[0]}
+            </Avatar>
+          </IconButton>
+        </Tooltip>
+      </Box>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+      >
+        <MenuItem onClick={handleClose}>
+          <Avatar />
+          <Typography sx={{ ml: "15px" }}>{nomeUser}</Typography>
+        </MenuItem>
+        <Divider />
+        <MenuItem>
+          <ListItemIcon>
+            <PersonAdd fontSize="small" />
+          </ListItemIcon>
+          <a style={{ textDecoration: "none", color: "gray" }} href="\signup">
+            Entrar em outra conta
+          </a>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          <a style={{ textDecoration: "none", color: "gray" }} href="\login">
+            Logout
+          </a>
+        </MenuItem>
+      </Menu>
+    </React.Fragment>
+  );
+}
 
 export const CustomToolbar = ({ isAuthenticated, nomeUser }) => {
   const navigate = useNavigate();
@@ -36,20 +108,16 @@ export const CustomToolbar = ({ isAuthenticated, nomeUser }) => {
       >
         <Toolbar>
           <IconButton
+            onClick={handleHomeClick}
             size="large"
             edge="start"
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
           ></IconButton>
-          <img
-            href="/Home"
-            src="logo.svg"
-            alt="logo"
-            width="61px"
-            height="58px"
-          />
-          <Typography
+          
+          <img src="logo.svg" alt="logo" width="61px" height="58px" />
+          <Typography 
             variant="h6"
             component="div"
             sx={{
@@ -149,13 +217,16 @@ export const CustomToolbar = ({ isAuthenticated, nomeUser }) => {
           )}
           {isAuthenticated && (
             <Stack direction="row" spacing={2}>
-              <Avatar sx={{ bgcolor: deepPurple[500] }}>{nomeUser && nomeUser[0]}</Avatar>
+              {/* <Avatar sx={{ bgcolor: deepPurple[500] }}>{nomeUser && nomeUser[0]}</Avatar> */}
+              {AccountMenu(nomeUser)}
             </Stack>
           )}
-          {isAuthenticated && nomeUser &&(
-          <Typography sx={{ml:"10px", mt:"1px", color: "gray", fontWeight: 500 }}>
-            {nomeUser}
-          </Typography>
+          {isAuthenticated && nomeUser && (
+            <Typography
+              sx={{ ml: "10px", mt: "1px", color: "gray", fontWeight: 500 }}
+            >
+              {nomeUser}
+            </Typography>
           )}
         </Toolbar>
       </AppBar>

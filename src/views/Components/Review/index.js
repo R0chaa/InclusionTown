@@ -7,12 +7,16 @@ import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import { Box } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { styled } from "@mui/material/styles";
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
 
 const labels = {
-  0.5: "Eca",
-  1: "+ou- Eca",
-  1.5: "Pobre",
-  2: "Pobre+",
+  0.5: "Ruim",
+  1: "Ruim+",
+  1.5: "Regular",
+  2: "Regular+",
   2.5: "Ok",
   3: "Ok+",
   3.5: "Bom",
@@ -64,7 +68,24 @@ export function HoverRating() {
   );
 }
 
-export function RateCard({ adr, name, photoUrl }) {
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
+
+export function RateCard({ adr, name, photoUrl, comments }) {
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <Card sx={{ maxWidth: 600, ml: "15%", mt: "16vh" }}>
       <CardMedia sx={{ height: 400 }} image={photoUrl} title="place" />
@@ -76,7 +97,32 @@ export function RateCard({ adr, name, photoUrl }) {
           {adr}
         </Typography>
       </CardContent>
-      <CardActions>{HoverRating()}</CardActions>
+      <CardActions>
+        {HoverRating()}
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
+      </CardActions>
+
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+        <Typography
+              sx={{ ml: "20px", fontWeight: 600, fontSize: "18px" }}
+            >
+              Comentários:
+            </Typography>
+            {comments.map((comment, index) => (
+              <Typography key={index} sx={{ ml: "20px", fontSize: "16px" }}>
+                <strong>{comment.local}:</strong> {comment.comentario}
+              </Typography>
+            ))}
+        </CardContent>
+      </Collapse>
     </Card>
   );
 }

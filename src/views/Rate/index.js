@@ -11,7 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import { useState } from "react";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 
 const acessibilidade = [
   "Deficiência física",
@@ -22,10 +22,10 @@ const acessibilidade = [
 ];
 
 const labels = {
-  0.5: "Eca",
-  1: "+ou- Eca",
-  1.5: "Pobre",
-  2: "Pobre+",
+  0.5: "Ruim",
+  1: "Ruim+",
+  1.5: "Regular",
+  2: "Regular+",
   2.5: "Ok",
   3: "Ok+",
   3.5: "Bom",
@@ -131,6 +131,31 @@ export function Rate() {
   const name = params.get("name");
   const photoUrl = params.get("photoUrl");
   const userName = params.get("userName");
+  const [comentarios, setComentarios] = useState("");
+  const [comments, setComments] = useState([]);
+
+  const handleComentarioChange = (event) => {
+    setComentarios(event.target.value);
+    // Limpa a mensagem de erro ao começar a digitar
+    setErroComentario(false);
+  };
+
+  const handleComentarioSubmit = () => {
+    // Verificar se o campo de comentário está vazio
+    if (comentarios.trim() === "") {
+      // Se estiver vazio, exibir mensagem de erro
+      setErroComentario(true);
+      return;
+    }
+
+    // Adicionar o novo comentário à lista
+    setComments([...comments, { local: userName, comentario: comentarios }]);
+
+    // Limpar o campo de comentários
+    setComentarios("");
+    // Limpar mensagem de erro
+    setErroComentario(false);
+  };
 
   const imgUrl =
     photoUrl !== null
@@ -139,27 +164,34 @@ export function Rate() {
 
   const [isAuthenticated] = useState(true);
 
+  const [erroComentario, setErroComentario] = useState(false);
+
   return (
     <Box>
       <Box>
-        <CustomToolbar isAuthenticated={isAuthenticated} nomeUser={userName}/>
+        <CustomToolbar isAuthenticated={isAuthenticated} nomeUser={userName} />
         <SearchBar />
       </Box>
       <Grid container>
         <Grid item xs={6}>
-          <Box mt={35}>
+          <Box mt={"200px"}>
             <img
               style={{ width: "250px", transform: "rotate(-172.15deg)" }}
               src="rocket.png"
               alt="rocket"
             />
             <Box ml={20} mt={"-60%"}>
-              <RateCard adr={adr} name={name} photoUrl={imgUrl} />
+              <RateCard
+                adr={adr}
+                name={name}
+                photoUrl={imgUrl}
+                comments={comments}
+              />
             </Box>
           </Box>
         </Grid>
         <Grid item xs={6}>
-          <Box  mt={-2}>
+          <Box mt={-2}>
             <Typography
               sx={{
                 mt: "4%",
@@ -195,8 +227,28 @@ export function Rate() {
                 </React.Fragment>
               ))}
             </Box>
-            <TextField sx={{width: "95%", ml:"20px", mt:"10px"}} label="Comentário" id="fullWidth" />
-            <Button sx={{ mt: "30px", mb:"40px", ml: "70%", color: "#8844EE", fontSize:"18px"}}>
+            <TextField
+              sx={{ width: "95%", ml: "20px", mt: "10px" }}
+              label="Comentário"
+              id="comentario"
+              value={comentarios}
+              onChange={handleComentarioChange}
+            />
+            {erroComentario && (
+              <Typography sx={{ ml: "20px", color: "red", fontSize: "14px" }}>
+                Por favor, digite um comentário.
+              </Typography>
+            )}
+            <Button
+              onClick={handleComentarioSubmit}
+              sx={{
+                mt: "30px",
+                mb: "40px",
+                ml: "70%",
+                color: "#8844EE",
+                fontSize: "18px",
+              }}
+            >
               Deixar comentário
             </Button>
           </div>
