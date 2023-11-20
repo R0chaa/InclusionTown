@@ -1,17 +1,18 @@
 import { Box, Button, Grid, Typography, Paper } from "@mui/material";
 import { CustomToolbar } from "../Components/Toolbar";
 import { SearchBar } from "../Components/SearchBar";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { RateCard } from "../Components/Review";
 import Switch from "@mui/material/Switch";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import { useState } from "react";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import TextField from "@mui/material/TextField";
+import Cookies from "js-cookie";
+
 
 const acessibilidade = [
   "Deficiência física",
@@ -38,8 +39,7 @@ function getLabelText(value) {
   return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
 }
 
-export function HoverRating() {
-  const [value, setValue] = React.useState(2);
+export function HoverRating({ value, onChange }) {
   const [hover, setHover] = React.useState(-1);
 
   return (
@@ -56,7 +56,7 @@ export function HoverRating() {
         precision={0.5}
         getLabelText={getLabelText}
         onChange={(event, newValue) => {
-          setValue(newValue);
+          onChange(newValue);
         }}
         onChangeActive={(event, newHover) => {
           setHover(newHover);
@@ -65,10 +65,7 @@ export function HoverRating() {
       />
       {value !== null && (
         <Box sx={{ ml: 2 }}>
-          <Typography
-            variant="body2"
-            style={{ fontFamily: "Roboto, sans-serif" }}
-          >
+          <Typography variant="body2" style={{ fontFamily: "Roboto, sans-serif" }}>
             {labels[hover !== -1 ? hover : value]}
           </Typography>
         </Box>
@@ -165,6 +162,19 @@ export function Rate() {
   const [isAuthenticated] = useState(true);
 
   const [erroComentario, setErroComentario] = useState(false);
+
+  // Carregar comentários salvos em cookies ao montar o componente
+  useEffect(() => {
+    const savedComments = Cookies.get("comments");
+    if (savedComments && JSON.stringify(comments) !== savedComments) {
+      setComments(JSON.parse(savedComments));
+    }
+  }, []);  
+
+  // Salvar comentários em cookies sempre que a lista de comentários for atualizada
+  useEffect(() => {
+    Cookies.set("comments", JSON.stringify(comments));
+  }, [comments]);
 
   return (
     <Box>
