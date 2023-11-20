@@ -6,8 +6,14 @@ Esse projeto utilizou REACT e MaterialUI para bootstrap [Create React App](https
 
 ## Resumo do projeto
 
-Avalie e apoie a inclusão em sua cidade!
-Inclusão é a chave para um futuro vibrante e diversificado.Promovemos um ambiente acolhedor, onde a diversidadeé celebrada e cada voz é valorizada.
+Avalie e apoie a inclusão em sua cidade! Em nossa plataforma a inclusão é a chave para um futuro vibrante e diversificado.
+Promovemos um ambiente acolhedor, onde a diversidade é celebrada e cada voz é valorizada.
+
+## Inclusão da API do governo brasileiro: VLibras
+
+Os surdos enfrentam bastante dificuldade para ler, escrever e se comunicar na língua oral do seu país. Dessa forma, para tentar reduzir esses problemas, o objetivo da ferramenta computacional de código aberto, denominada VLibras Widget, consiste em traduzir conteúdos do Português Brasileiro para a Língua Brasileira de Sinais (LIBRAS), tornando websites acessíveis a pessoas surdas. [Saiba mais acessando a página do VLibras](https://www.gov.br/conecta/catalogo/apis/vlibras)
+
+![IHC2](https://github.com/R0chaa/InclusionTown/assets/73042947/9986c0a7-3088-4e9a-bb44-0fe1db304a7a)
 
 ## Rodando a aplicação
 
@@ -25,8 +31,6 @@ Agora é só abrir o [http://localhost:3000](http://localhost:3000) para ver a a
 
 A página irá recarregar caso hajam alterações.\
 Você também poderá ver uma lista de erros no console.
-
-![IHC2](https://github.com/R0chaa/InclusionTown/assets/73042947/9986c0a7-3088-4e9a-bb44-0fe1db304a7a)
 
 ## Recursos utilizados no desenvolvimento:
 
