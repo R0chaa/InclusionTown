@@ -72,22 +72,22 @@ export function AccountMenu(nomeUser) {
           <Typography sx={{ ml: "15px" }}>{nomeUser}</Typography>
         </MenuItem>
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          <a style={{ textDecoration: "none", color: "gray" }} href="\signup">
+        <a style={{ textDecoration: "none", color: "gray" }} href="\signup">
+          <MenuItem>
+            <ListItemIcon>
+              <PersonAdd fontSize="small" />
+            </ListItemIcon>
             Entrar em outra conta
-          </a>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          <a style={{ textDecoration: "none", color: "gray" }} href="\login">
+          </MenuItem>
+        </a>
+        <a style={{ textDecoration: "none", color: "gray" }} href="\login">
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
             Logout
-          </a>
-        </MenuItem>
+          </MenuItem>
+        </a>  
       </Menu>
     </React.Fragment>
   );
@@ -115,9 +115,9 @@ export const CustomToolbar = ({ isAuthenticated, nomeUser }) => {
             aria-label="menu"
             sx={{ mr: 2 }}
           ></IconButton>
-          
+
           <img src="logo.svg" alt="logo" width="61px" height="58px" />
-          <Typography 
+          <Typography
             variant="h6"
             component="div"
             sx={{

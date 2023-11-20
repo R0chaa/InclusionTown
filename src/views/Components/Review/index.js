@@ -110,10 +110,9 @@ export function RateCard({ adr, name, photoUrl, comments, placeRate }) {
       </CardActions>
 
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-        <Typography
-              sx={{ ml: "20px", fontWeight: 600, fontSize: "18px" }}
-            >
+        <Box sx={{ overflow: 'auto', maxHeight: '100px'}}>
+          <CardContent>
+            <Typography sx={{ ml: "20px", fontWeight: 600, fontSize: "18px" }}>
               Comentários:
             </Typography>
             {comments.map((comment, index) => (
@@ -121,7 +120,8 @@ export function RateCard({ adr, name, photoUrl, comments, placeRate }) {
                 <strong>{comment.local}:</strong> {comment.comentario}
               </Typography>
             ))}
-        </CardContent>
+          </CardContent>
+        </Box>
       </Collapse>
     </Card>
   );

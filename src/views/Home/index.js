@@ -26,15 +26,19 @@ export function Home() {
 
   return (
     <Box>
-      <CustomToolbar isAuthenticated={isAuthenticated} nomeUser={name}/>
+      <CustomToolbar isAuthenticated={isAuthenticated} nomeUser={name} />
       <SearchBar />
       <BasicSelect />
-      <MyComponent nomeUser={name} onMarkerClick={handleMarkerClick} onMapClick={handleMapClick} />
+      <MyComponent
+        nomeUser={name}
+        onMarkerClick={handleMarkerClick}
+        onMapClick={handleMapClick}
+      />
 
       <Box>
         <Grid>
-          <ReviewCard />
-          <ReviewCard2 />
+          <ReviewCard nomeUser={name} />
+          <ReviewCard2 nomeUser={name} />
         </Grid>
       </Box>
     </Box>

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -12,31 +11,50 @@ import Typography from "@mui/material/Typography";
 import { purple, green } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+// import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+// import { styled } from "@mui/material/styles";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import Button from "@mui/material/Button";
 import FolderIcon from "@mui/icons-material/Folder";
+import { useNavigate } from "react-router-dom";
 //import { Grid } from "@mui/material";
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+// const ExpandMore = styled((props) => {
+//   const { expand, ...other } = props;
+//   return <IconButton {...other} />;
+// })(({ theme, expand }) => ({
+//   transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+//   marginLeft: "auto",
+//   transition: theme.transitions.create("transform", {
+//     duration: theme.transitions.duration.shortest,
+//   }),
+// }));
 
 //const cards = [1, 2];
 
-export const ReviewCard = () => {
-  const [expanded, setExpanded] = React.useState(false);
+export const ReviewCard = ({nomeUser}) => {
+  // const [expanded, setExpanded] = React.useState(false);
+  const navigate = useNavigate();
+  const adr="R. da Consolação, 930 - Consolação, São Paulo - SP, 01302-907";
+  const local="Universidade Presbiteriana Mackenzie";
+  const photoUrl="https://www.mackenzie.br/fileadmin/user_upload/mackenzie_3740_041017.jpg";
+  const placeRate=4.5;
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  // const handleExpandClick = () => {
+  //   setExpanded(!expanded);
+  // };
+
+  const handleRateClick = () => {
+    navigate(
+      `/rate?address=${encodeURIComponent(
+        adr
+      )}&name=${encodeURIComponent(
+        local
+      )}&photoUrl=${encodeURIComponent(photoUrl)}
+      &userName=${nomeUser}
+      &placeRate=${placeRate}`
+    );
   };
 
   return (
@@ -73,7 +91,7 @@ export const ReviewCard = () => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Button variant="outlined" color="secondary">
+        <Button variant="outlined" color="secondary" onClick={handleRateClick}>
           Deixar comentário
         </Button>
         <IconButton aria-label="add to favorites" sx={{ ml: "10px" }}>
@@ -82,33 +100,48 @@ export const ReviewCard = () => {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <ExpandMore
+        {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </ExpandMore>
+        </ExpandMore> */}
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Avaliações:</Typography>
-          <Typography paragraph>Teste teste teste</Typography>
-          <Typography paragraph>teste testeeeee testeeeee</Typography>
-          <Typography>qualquer coisa qualquer coisa</Typography>
         </CardContent>
       </Collapse>
     </Card>
   );
 };
 
-export const ReviewCard2 = () => {
-  const [expanded, setExpanded] = React.useState(false);
+export const ReviewCard2 = ({nomeUser}) => {
+  // const [expanded, setExpanded] = React.useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const navigate = useNavigate();
+  const adr="R. da Consolação - Consolação, São Paulo - SP, 01220-010";
+  const local="Higienópolis-Mackenzie";
+  const photoUrl="https://anptrilhos.org.br/wp-content/uploads/2018/01/Estação-Higienópolis-Mackenzie-Foto-Alexandre-Carvalho-A2img-15-600px.jpg";
+  const placeRate=4;
+
+  const handleRateClick = () => {
+    navigate(
+      `/rate?address=${encodeURIComponent(
+        adr
+      )}&name=${encodeURIComponent(
+        local
+      )}&photoUrl=${encodeURIComponent(photoUrl)}
+      &userName=${nomeUser}
+      &placeRate=${placeRate}`
+    );
   };
+
+  // const handleExpandClick = () => {
+  //   setExpanded(!expanded);
+  // };
 
   return (
     // cards.forEach(card => {
@@ -146,7 +179,7 @@ export const ReviewCard2 = () => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Button variant="outlined" color="secondary">
+        <Button variant="outlined" color="secondary" onClick={handleRateClick} >
           Deixar comentário
         </Button>
         <IconButton aria-label="add to favorites" sx={{ ml: "10px" }}>
@@ -155,21 +188,18 @@ export const ReviewCard2 = () => {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <ExpandMore
+        {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </ExpandMore>
+        </ExpandMore> */}
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Avaliações:</Typography>
-          <Typography paragraph>Teste teste teste</Typography>
-          <Typography paragraph>teste testeeeee testeeeee</Typography>
-          <Typography>qualquer coisa qualquer coisa</Typography>
         </CardContent>
       </Collapse>
     </Card>
