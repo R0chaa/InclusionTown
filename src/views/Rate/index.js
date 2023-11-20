@@ -13,6 +13,14 @@ import StarIcon from "@mui/icons-material/Star";
 import TextField from "@mui/material/TextField";
 import Cookies from "js-cookie";
 
+import {
+  insereNotaHashmap,
+  getHashMap,
+  getHashMapComentarios,
+  insereComentarioHashmap,
+} from "../../App";
+
+let hashmapNotas = {};
 
 const acessibilidade = [
   "Deficiência física",
@@ -65,7 +73,10 @@ export function HoverRating({ value, onChange }) {
       />
       {value !== null && (
         <Box sx={{ ml: 2 }}>
-          <Typography variant="body2" style={{ fontFamily: "Roboto, sans-serif" }}>
+          <Typography
+            variant="body2"
+            style={{ fontFamily: "Roboto, sans-serif" }}
+          >
             {labels[hover !== -1 ? hover : value]}
           </Typography>
         </Box>
@@ -75,14 +86,21 @@ export function HoverRating({ value, onChange }) {
 }
 
 export function FormControlLabelPosition({ label, placeRate }) {
-  const numeroAleatorioInicial = Math.floor(Math.random() * 5) + (placeRate/2);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const name = params.get("name");
+  //const numeroAleatorioInicial = Math.floor(Math.random() * 5) + (placeRate/2);
+  const numeroAleatorioInicial = getHashMap(name);
 
-  const [numeroAleatorio, setNumeroAleatorio] = useState(numeroAleatorioInicial);
+  const [numeroAleatorio, setNumeroAleatorio] = useState(
+    numeroAleatorioInicial
+  );
 
   useEffect(() => {
-    const novoNumeroAleatorio = Math.floor(Math.random() * 5) + 1;
-    setNumeroAleatorio(novoNumeroAleatorio);
-  }, []); 
+    // const novoNumeroAleatorio = Math.floor(Math.random() * 5) + 1;
+    // setNumeroAleatorio(novoNumeroAleatorio);
+    getHashMap(name);
+  }, []);
 
   const [rating, setRating] = useState(numeroAleatorio);
   const [switchState, setSwitchState] = useState(false);
@@ -95,6 +113,10 @@ export function FormControlLabelPosition({ label, placeRate }) {
     setSwitchState(!switchState);
   };
 
+  //insereNotaHashmap(name, numeroAleatorioInicial);
+  hashmapNotas[label] = rating;
+
+  //console.log(hashmapNotas);
   return (
     <Paper
       sx={{
@@ -137,7 +159,7 @@ export function Rate() {
   const name = params.get("name");
   const photoUrl = params.get("photoUrl");
   const userName = params.get("userName");
-  const placeRate = params.get("placeRate");
+  const placeRate = getHashMap(name);
   const [comentarios, setComentarios] = useState("");
   const [comments, setComments] = useState([]);
 
@@ -145,6 +167,12 @@ export function Rate() {
     setComentarios(event.target.value);
     // Limpa a mensagem de erro ao começar a digitar
     setErroComentario(false);
+  };
+
+  const handleAcessSubmit = () => {
+    console.log("name: ", name);
+    console.log("hashmapNotas: ", hashmapNotas);
+    insereNotaHashmap(name, hashmapNotas);
   };
 
   const handleComentarioSubmit = () => {
@@ -247,7 +275,10 @@ export function Rate() {
             <Box sx={{ mt: "15px", ml: "20px" }}>
               {acessibilidade.map((label, index) => (
                 <React.Fragment key={index}>
-                  <FormControlLabelPosition label={label} placeRate={placeRate} />
+                  <FormControlLabelPosition
+                    label={label}
+                    placeRate={placeRate}
+                  />
                 </React.Fragment>
               ))}
             </Box>
@@ -268,12 +299,24 @@ export function Rate() {
               sx={{
                 mt: "30px",
                 mb: "40px",
-                ml: "70%",
+                ml: "50%",
                 color: "#8844EE",
                 fontSize: "18px",
               }}
             >
-              Deixar comentário
+              Adicionar Comentário
+            </Button>
+            <Button
+              onClick={handleAcessSubmit}
+              sx={{
+                mt: "-13%",
+                mb: "40px",
+                ml: "85%",
+                color: "#8844EE",
+                fontSize: "18px",
+              }}
+            >
+              Enviar
             </Button>
           </div>
         </Grid>
