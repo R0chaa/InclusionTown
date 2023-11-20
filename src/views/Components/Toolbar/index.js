@@ -132,7 +132,7 @@ export const CustomToolbar = ({ isAuthenticated, nomeUser }) => {
             Inclusion Town
           </Typography>
           {isAuthenticated && (
-            <Button onClick={handleHomeClick} sx={{ mr: "10px" }}>
+            <Button alt="Home" onClick={handleHomeClick} sx={{ mr: "10px" }}>
               <Box sx={{ mr: "10px" }}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

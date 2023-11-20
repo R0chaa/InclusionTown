@@ -16,8 +16,6 @@ import Cookies from "js-cookie";
 import {
   insereNotaHashmap,
   getHashMap,
-  getHashMapComentarios,
-  insereComentarioHashmap,
 } from "../../App";
 
 let hashmapNotas = {};
@@ -92,7 +90,7 @@ export function FormControlLabelPosition({ label, placeRate }) {
   //const numeroAleatorioInicial = Math.floor(Math.random() * 5) + (placeRate/2);
   const numeroAleatorioInicial = getHashMap(name);
 
-  const [numeroAleatorio, setNumeroAleatorio] = useState(
+  const [numeroAleatorio] = useState(
     numeroAleatorioInicial
   );
 
@@ -100,7 +98,9 @@ export function FormControlLabelPosition({ label, placeRate }) {
     // const novoNumeroAleatorio = Math.floor(Math.random() * 5) + 1;
     // setNumeroAleatorio(novoNumeroAleatorio);
     getHashMap(name);
+    // eslint-disable-next-line
   }, []);
+  
 
   const [rating, setRating] = useState(numeroAleatorio);
   const [switchState, setSwitchState] = useState(false);
@@ -169,10 +169,19 @@ export function Rate() {
     setErroComentario(false);
   };
 
+  function reloadPage() {
+    window.location.reload();
+  }
+
   const handleAcessSubmit = () => {
     console.log("name: ", name);
     console.log("hashmapNotas: ", hashmapNotas);
     insereNotaHashmap(name, hashmapNotas);
+
+    setComments([...comments, { local: userName, comentario: comentarios }]);
+    setComentarios("");
+    setErroComentario(false);
+    reloadPage();
   };
 
   const handleComentarioSubmit = () => {
@@ -209,7 +218,7 @@ export function Rate() {
     if (savedComments && JSON.stringify(comments) !== savedComments) {
       setComments(JSON.parse(savedComments));
     }
-  }, []);  
+  }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
 
   // Salvar comentários em cookies sempre que a lista de comentários for atualizada

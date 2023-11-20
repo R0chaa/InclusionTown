@@ -1,6 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Cookies from "js-cookie";
 
 let hashmapNotas = {};
@@ -93,8 +93,6 @@ export function insereComentarioHashmap(chave, comentario) {
 }
 
 export function getHashMapComentarios(chave) {
-
-  
   const savedHashmap = Cookies.get("hashmapComentarios");
   console.log( "teste:" , Cookies.get("hashmapComentarios"))
 
